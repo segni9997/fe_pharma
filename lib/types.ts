@@ -21,6 +21,7 @@ export interface Medicine {
   barcode?: string
   createdAt: Date
   updatedAt: Date
+  genericName?: string
 }
 
 export interface Category {

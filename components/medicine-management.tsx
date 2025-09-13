@@ -45,6 +45,7 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
     stockQuantity: "",
     expiryDate: "",
     barcode: "",
+    genericName: "",
   })
 
   const canEdit = user?.role === "owner" || user?.role === "pharmacist"
@@ -85,6 +86,7 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
       stockQuantity: "",
       expiryDate: "",
       barcode: "",
+      genericName: "",
     })
     setEditingMedicine(null)
   }
@@ -127,6 +129,7 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
       stockQuantity: medicine.stockQuantity.toString(),
       expiryDate: medicine.expiryDate.toISOString().split("T")[0],
       barcode: medicine.barcode || "",
+      genericName: medicine.genericName || "",
     })
     setIsAddDialogOpen(true)
   }
@@ -176,6 +179,15 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
                         <Input
                           id="name"
                           value={formData.name}
+                          onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
+                          required
+                        />
+                      </div>
+                       <div className="space-y-2">
+                        <Label htmlFor="genericName">Generic Name *</Label>
+                        <Input
+                          id="genericName"
+                          value={formData.genericName}
                           onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
                           required
                         />
