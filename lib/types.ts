@@ -9,9 +9,16 @@ export interface User {
   createdAt: Date
 }
 
+export interface RefillRecord {
+  initialQuantity: number
+  refillDate: Date
+  endDate?: Date
+}
+
 export interface Medicine {
   id: string
   name: string
+  genericName?: string
   batchNumber: string
   manufacturer: string
   categoryId: string
@@ -19,8 +26,10 @@ export interface Medicine {
   stockQuantity: number
   expiryDate: Date
   barcode?: string
+  imageFile?: File
   createdAt: Date
   updatedAt: Date
+  refillHistory?: RefillRecord[]
 }
 
 export interface Category {

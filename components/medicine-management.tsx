@@ -5,7 +5,7 @@ import type React from "react"
 import { useState, useMemo } from "react"
 import { useAuth } from "@/lib/auth"
 import { mockMedicines, mockCategories } from "@/lib/data"
-import type { Medicine } from "@/lib/types"
+import type { Medicine, RefillRecord } from "@/lib/types"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -22,7 +22,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { AlertTriangle, Calendar, Package, Plus, Search, Edit, Trash2, ArrowLeft } from "lucide-react"
+import { AlertTriangle, Calendar, Package, Plus, Search, Edit, Trash2, ArrowLeft, RefreshCw, History } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 
 interface MedicineManagementProps {
@@ -36,8 +36,18 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
   const [editingMedicine, setEditingMedicine] = useState<Medicine | null>(null)
+  const [isRefillDialogOpen, setIsRefillDialogOpen] = useState(false)
+  const [refillingMedicine, setRefillingMedicine] = useState<Medicine | null>(null)
+  const [refillFormData, setRefillFormData] = useState({
+    quantity: "",
+    refillDate: new Date().toISOString().split("T")[0],
+    endDate: "",
+  })
+  const [isHistoryDialogOpen, setIsHistoryDialogOpen] = useState(false)
+  const [historyMedicine, setHistoryMedicine] = useState<Medicine | null>(null)
   const [formData, setFormData] = useState({
     name: "",
+    genericName: "",
     batchNumber: "",
     manufacturer: "",
     categoryId: "",
@@ -45,6 +55,7 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
     stockQuantity: "",
     expiryDate: "",
     barcode: "",
+    imageFile: null as File | null,
   })
 
   const canEdit = user?.role === "owner" || user?.role === "pharmacist"
@@ -78,6 +89,7 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
   const resetForm = () => {
     setFormData({
       name: "",
+      genericName: "",
       batchNumber: "",
       manufacturer: "",
       categoryId: "",
@@ -85,6 +97,7 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
       stockQuantity: "",
       expiryDate: "",
       barcode: "",
+      imageFile: null,
     })
     setEditingMedicine(null)
   }
@@ -95,6 +108,7 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
     const medicineData: Medicine = {
       id: editingMedicine?.id || Date.now().toString(),
       name: formData.name,
+      genericName: formData.genericName || undefined,
       batchNumber: formData.batchNumber,
       manufacturer: formData.manufacturer,
       categoryId: formData.categoryId,
@@ -102,8 +116,10 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
       stockQuantity: Number.parseInt(formData.stockQuantity),
       expiryDate: new Date(formData.expiryDate),
       barcode: formData.barcode || undefined,
+      imageFile: formData.imageFile ?? undefined,
       createdAt: editingMedicine?.createdAt || new Date(),
       updatedAt: new Date(),
+      refillHistory: editingMedicine?.refillHistory,
     }
 
     if (editingMedicine) {
@@ -120,6 +136,7 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
     setEditingMedicine(medicine)
     setFormData({
       name: medicine.name,
+      genericName: medicine.genericName || "",
       batchNumber: medicine.batchNumber,
       manufacturer: medicine.manufacturer,
       categoryId: medicine.categoryId,
@@ -127,6 +144,7 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
       stockQuantity: medicine.stockQuantity.toString(),
       expiryDate: medicine.expiryDate.toISOString().split("T")[0],
       barcode: medicine.barcode || "",
+      imageFile: medicine.imageFile || null,
     })
     setIsAddDialogOpen(true)
   }
@@ -135,6 +153,49 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
     if (confirm("Are you sure you want to delete this medicine?")) {
       setMedicines((prev) => prev.filter((med) => med.id !== medicineId))
     }
+  }
+
+  const handleRefill = (medicine: Medicine) => {
+    setRefillingMedicine(medicine)
+    setRefillFormData({
+      quantity: "",
+      refillDate: new Date().toISOString().split("T")[0],
+      endDate: "",
+    })
+    setIsRefillDialogOpen(true)
+  }
+
+  const handleRefillSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!refillingMedicine) return
+
+    const quantity = Number.parseInt(refillFormData.quantity)
+    const refillRecord: RefillRecord = {
+      initialQuantity: quantity,
+      refillDate: new Date(refillFormData.refillDate),
+      endDate: refillFormData.endDate ? new Date(refillFormData.endDate) : undefined,
+    }
+
+    setMedicines((prev) =>
+      prev.map((med) =>
+        med.id === refillingMedicine.id
+          ? {
+              ...med,
+              stockQuantity: med.stockQuantity + quantity,
+              refillHistory: [...(med.refillHistory || []), refillRecord],
+              updatedAt: new Date(),
+            }
+          : med
+      )
+    )
+
+    setIsRefillDialogOpen(false)
+    setRefillingMedicine(null)
+  }
+
+  const handleHistory = (medicine: Medicine) => {
+    setHistoryMedicine(medicine)
+    setIsHistoryDialogOpen(true)
   }
 
   const getCategoryName = (categoryId: string) => {
@@ -180,6 +241,16 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
                           required
                         />
                       </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="genericName">Generic Name (Optional)</Label>
+                        <Input
+                          id="genericName"
+                          value={formData.genericName}
+                          onChange={(e) => setFormData((prev) => ({ ...prev, genericName: e.target.value }))}
+                        />
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="batchNumber">Batch Number *</Label>
                         <Input
@@ -261,6 +332,15 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
                         placeholder="Enter barcode number"
                       />
                     </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="imageFile">Image File (Optional)</Label>
+                      <input
+                        id="imageFile"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => setFormData((prev) => ({ ...prev, imageFile: e.target.files?.[0] || null }))}
+                      />
+                    </div>
                   </div>
                   <DialogFooter>
                     <Button type="button" variant="outline" onClick={() => setIsAddDialogOpen(false)}>
@@ -272,6 +352,96 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
               </DialogContent>
             </Dialog>
           )}
+
+          {/* Refill Dialog */}
+          <Dialog open={isRefillDialogOpen} onOpenChange={setIsRefillDialogOpen}>
+            <DialogContent className="max-w-md">
+              <DialogHeader>
+                <DialogTitle>Refill Medicine</DialogTitle>
+                <DialogDescription>
+                  Add stock to {refillingMedicine?.name}
+                </DialogDescription>
+              </DialogHeader>
+              <form onSubmit={handleRefillSubmit}>
+                <div className="grid gap-4 py-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="refillQuantity">Quantity to Add *</Label>
+                    <Input
+                      id="refillQuantity"
+                      type="number"
+                      value={refillFormData.quantity}
+                      onChange={(e) => setRefillFormData((prev) => ({ ...prev, quantity: e.target.value }))}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="refillDate">Refill Date *</Label>
+                    <Input
+                      id="refillDate"
+                      type="date"
+                      value={refillFormData.refillDate}
+                      onChange={(e) => setRefillFormData((prev) => ({ ...prev, refillDate: e.target.value }))}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="endDate">End Date (Optional)</Label>
+                    <Input
+                      id="endDate"
+                      type="date"
+                      value={refillFormData.endDate}
+                      onChange={(e) => setRefillFormData((prev) => ({ ...prev, endDate: e.target.value }))}
+                    />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button type="button" variant="outline" onClick={() => setIsRefillDialogOpen(false)}>
+                    Cancel
+                  </Button>
+                  <Button type="submit">Refill</Button>
+                </DialogFooter>
+              </form>
+            </DialogContent>
+          </Dialog>
+
+          {/* History Dialog */}
+          <Dialog open={isHistoryDialogOpen} onOpenChange={setIsHistoryDialogOpen}>
+            <DialogContent className="max-w-2xl">
+              <DialogHeader>
+                <DialogTitle>Refill History - {historyMedicine?.name}</DialogTitle>
+                <DialogDescription>
+                  View all refill records for this medicine
+                </DialogDescription>
+              </DialogHeader>
+              <div className="py-4">
+                {historyMedicine?.refillHistory && historyMedicine.refillHistory.length > 0 ? (
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Initial Quantity</TableHead>
+                        <TableHead>Refill Date</TableHead>
+                        <TableHead>End Date</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {historyMedicine.refillHistory.map((record, index) => (
+                        <TableRow key={index}>
+                          <TableCell>{record.initialQuantity}</TableCell>
+                          <TableCell>{record.refillDate.toLocaleDateString()}</TableCell>
+                          <TableCell>{record.endDate ? record.endDate.toLocaleDateString() : "N/A"}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                ) : (
+                  <p className="text-muted-foreground">No refill history available.</p>
+                )}
+              </div>
+              <DialogFooter>
+                <Button onClick={() => setIsHistoryDialogOpen(false)}>Close</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </header>
 
@@ -309,7 +479,7 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
             <Alert>
               <AlertTriangle className="h-4 w-4" />
               <AlertDescription>
-                {medicines.filter((med) => med.stockQuantity < 10).length} medicines have low stock (below 10 units)
+                {medicines.filter((med) => med.stockQuantity < 10).length} medicines have low stock (below 10 units). Total refills: {medicines.filter((med) => med.stockQuantity < 10).reduce((sum, med) => sum + (med.refillHistory?.length || 0), 0)}
               </AlertDescription>
             </Alert>
           )}
@@ -329,6 +499,14 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
                   }).length
                 }{" "}
                 medicines are expiring within 30 days
+              </AlertDescription>
+            </Alert>
+          )}
+          {medicines.filter((med) => med.stockQuantity < 5 && med.refillHistory && med.refillHistory.length > 0).length > 0 && (
+            <Alert>
+              <Package className="h-4 w-4" />
+              <AlertDescription>
+                Refill alert: {medicines.filter((med) => med.stockQuantity < 5 && med.refillHistory && med.refillHistory.length > 0).length} medicines have very low stock and refill history. Consider refilling based on past patterns.
               </AlertDescription>
             </Alert>
           )}
@@ -355,6 +533,8 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
                     <TableHead>Stock</TableHead>
                     <TableHead>Expiry</TableHead>
                     <TableHead>Status</TableHead>
+                    <TableHead>Refills</TableHead>
+                    <TableHead>Image</TableHead>
                     {canEdit && <TableHead>Actions</TableHead>}
                   </TableRow>
                 </TableHeader>
@@ -383,9 +563,27 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
                         <TableCell>
                           <Badge variant={expiryStatus.variant}>{expiryStatus.label}</Badge>
                         </TableCell>
+                        <TableCell>{medicine.refillHistory?.length || 0}</TableCell>
+                        <TableCell>
+                          {medicine.imageFile ? (
+                            <img
+                              src={URL.createObjectURL(medicine.imageFile)}
+                              alt={medicine.name}
+                              className="w-10 h-10 object-cover rounded"
+                            />
+                          ) : (
+                            "No image"
+                          )}
+                        </TableCell>
                         {canEdit && (
                           <TableCell>
                             <div className="flex gap-2">
+                              <Button variant="ghost" size="sm" onClick={() => handleRefill(medicine)}>
+                                <RefreshCw className="h-4 w-4" />
+                              </Button>
+                              <Button variant="ghost" size="sm" onClick={() => handleHistory(medicine)}>
+                                <History className="h-4 w-4" />
+                              </Button>
                               <Button variant="ghost" size="sm" onClick={() => handleEdit(medicine)}>
                                 <Edit className="h-4 w-4" />
                               </Button>
