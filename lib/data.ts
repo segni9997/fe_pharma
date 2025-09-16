@@ -126,3 +126,31 @@ export function getDashboardStats(): DashboardStats {
     nearExpiryCount,
   }
 }
+
+// New function to get top selling medicines
+export function getTopSellingMedicines() {
+  // Aggregate sales by medicineId
+  const salesByMedicine: Record<string, { sales: number; revenue: number }> = {}
+
+  for (const saleItem of mockSaleItems) {
+    if (!salesByMedicine[saleItem.medicineId]) {
+      salesByMedicine[saleItem.medicineId] = { sales: 0, revenue: 0 }
+    }
+    salesByMedicine[saleItem.medicineId].sales += saleItem.quantity
+    salesByMedicine[saleItem.medicineId].revenue += saleItem.totalPrice
+  }
+
+  // Map to array with medicine name
+  const result = Object.entries(salesByMedicine).map(([medicineId, data]) => {
+    const medicine = mockMedicines.find((med) => med.id === medicineId)
+    return {
+      name: medicine ? medicine.name : "Unknown",
+      sales: data.sales,
+      revenue: data.revenue,
+    }
+  })
+
+  // Sort by sales descending and take top 5
+  result.sort((a, b) => b.sales - a.sales)
+  return result.slice(0, 5)
+}

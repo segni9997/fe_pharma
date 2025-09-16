@@ -86,7 +86,9 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back
             </Button>
-            <h1 className="text-2xl font-bold text-primary">Analytics Dashboard</h1>
+            <h1 className="text-2xl font-bold text-primary">
+              Analytics Dashboard
+            </h1>
           </div>
           <div className="flex items-center gap-4">
             <Select value={timeRange} onValueChange={setTimeRange}>
@@ -113,11 +115,15 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Total Revenue
+              </CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">${stats.monthlySales.toFixed(2)}</div>
+              <div className="text-2xl font-bold">
+                ${stats.monthlySales.toFixed(2)}
+              </div>
               <div className="flex items-center text-xs text-muted-foreground">
                 <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
                 +12.5% from last month
@@ -127,7 +133,9 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Transactions</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Total Transactions
+              </CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -141,7 +149,9 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Avg. Order Value</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Avg. Order Value
+              </CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -155,7 +165,9 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Inventory Value</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Inventory Value
+              </CardTitle>
               <Package className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -174,7 +186,9 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
           <Card>
             <CardHeader>
               <CardTitle>Sales Trend</CardTitle>
-              <CardDescription>Daily sales performance over the last week</CardDescription>
+              <CardDescription>
+                Daily sales performance over the last week
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <ChartContainer
@@ -224,7 +238,9 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
           <Card>
             <CardHeader>
               <CardTitle>Inventory by Category</CardTitle>
-              <CardDescription>Distribution of inventory value across categories</CardDescription>
+              <CardDescription>
+                Distribution of inventory value across categories
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <ChartContainer
@@ -243,13 +259,18 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
                       cx="50%"
                       cy="50%"
                       labelLine={false}
-                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                      label={({ name, percent }: any) =>
+                        `${name} ${(percent * 100).toFixed(0)}%`
+                      }
                       outerRadius={80}
                       fill="#8884d8"
                       dataKey="value"
                     >
                       {categoryData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={COLORS[index % COLORS.length]}
+                        />
                       ))}
                     </Pie>
                     <ChartTooltip content={<ChartTooltipContent />} />
@@ -266,7 +287,9 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
           <Card>
             <CardHeader>
               <CardTitle>Top Selling Products</CardTitle>
-              <CardDescription>Best performing products by sales volume</CardDescription>
+              <CardDescription>
+                Best performing products by sales volume
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <ChartContainer
@@ -295,18 +318,27 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
           <Card>
             <CardHeader>
               <CardTitle>Stock Alerts</CardTitle>
-              <CardDescription>Products requiring immediate attention</CardDescription>
+              <CardDescription>
+                Products requiring immediate attention
+              </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {stockAlertData.length === 0 ? (
-                  <p className="text-muted-foreground text-center py-8">No stock alerts at this time</p>
+                  <p className="text-muted-foreground text-center py-8">
+                    No stock alerts at this time
+                  </p>
                 ) : (
                   stockAlertData.map((item, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-3 border rounded-lg"
+                    >
                       <div className="flex-1">
                         <h4 className="font-medium text-sm">{item.name}</h4>
-                        <p className="text-xs text-muted-foreground">Current stock: {item.stock} units</p>
+                        <p className="text-xs text-muted-foreground">
+                          Current stock: {item.stock} units
+                        </p>
                       </div>
                       <Badge variant="destructive" className="text-xs">
                         {item.status} Stock
@@ -331,7 +363,9 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
             <CardContent className="space-y-2">
               <div className="flex justify-between">
                 <span className="text-sm">Total Sales:</span>
-                <span className="font-medium">${stats.weeklySales.toFixed(2)}</span>
+                <span className="font-medium">
+                  ${stats.weeklySales.toFixed(2)}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sm">Transactions:</span>
@@ -362,15 +396,21 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
               </div>
               <div className="flex justify-between">
                 <span className="text-sm">Low Stock:</span>
-                <span className="font-medium text-red-600">{stats.lowStockCount}</span>
+                <span className="font-medium text-red-600">
+                  {stats.lowStockCount}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sm">Near Expiry:</span>
-                <span className="font-medium text-orange-600">{stats.nearExpiryCount}</span>
+                <span className="font-medium text-orange-600">
+                  {stats.nearExpiryCount}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sm">Expired:</span>
-                <span className="font-medium text-red-600">{stats.expiredCount}</span>
+                <span className="font-medium text-red-600">
+                  {stats.expiredCount}
+                </span>
               </div>
             </CardContent>
           </Card>
@@ -404,5 +444,5 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
         </div>
       </main>
     </div>
-  )
+  );
 }

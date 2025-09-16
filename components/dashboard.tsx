@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useAuth } from "@/lib/auth"
-import { getDashboardStats } from "@/lib/data"
+import { getDashboardStats, getTopSellingMedicines } from "@/lib/data"
 import { MedicineManagement } from "@/components/medicine-management"
 import { POSSystem } from "@/components/pos-system"
 import { AnalyticsDashboard } from "@/components/analytics-dashboard"
@@ -17,6 +17,7 @@ export function Dashboard() {
   const { user, logout } = useAuth()
   const [currentView, setCurrentView] = useState<DashboardView>("main")
   const stats = getDashboardStats()
+  const topSellingMedicines = getTopSellingMedicines()
 
   const handleLogout = () => {
     logout()
@@ -63,7 +64,7 @@ export function Dashboard() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5 mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Today's Sales</CardTitle>
@@ -105,6 +106,17 @@ export function Dashboard() {
             <CardContent>
               <div className="text-2xl font-bold text-accent">{stats.nearExpiryCount}</div>
               <p className="text-xs text-muted-foreground">Expiring in 30 days</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Expired Medicines</CardTitle>
+              <AlertTriangle className="h-4 w-4 text-destructive" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-destructive">{stats.expiredCount}</div>
+              <p className="text-xs text-muted-foreground">Already expired</p>
             </CardContent>
           </Card>
         </div>
@@ -152,6 +164,28 @@ export function Dashboard() {
               <Button className="w-full">View Reports</Button>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Top Selling Medicines Section */}
+        <div className="mt-8">
+          <h3 className="text-xl font-semibold mb-4">Top Selling Medicines</h3>
+          {topSellingMedicines.length === 0 ? (
+            <p className="text-muted-foreground">No sales data available.</p>
+          ) : (
+            <div className="space-y-4">
+              {topSellingMedicines.map((medicine, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between items-center p-4 border rounded-md hover:shadow-md transition-shadow"
+                >
+                  <span className="font-medium">{medicine.name}</span>
+                  <span className="text-sm text-muted-foreground">
+                    Sold: {medicine.sales} units | Revenue: ${medicine.revenue.toFixed(2)}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </main>
     </div>
