@@ -27,10 +27,10 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="fixed bottom-4 rounded-full right-4 p-2 rounded bg-primary text-white hover:bg-primary/70 transition"
+      className="fixed bottom-4 rounded-full right-4 p-2 z-50 bg-primary text-white hover:bg-primary/70 transition"
       aria-label="Toggle theme"
     >
-      {theme === "light" ? <Moon/> : <Sun/>}
+      {theme === "light" ? <Moon /> : <Sun />}
     </button>
   );
 }
