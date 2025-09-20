@@ -1,4 +1,4 @@
-import type { Medicine, Category, Sale, SaleItem, DashboardStats } from "./types"
+import type { Medicine, Category, Unit, Sale, SaleItem, DashboardStats } from "./types"
 
 // Mock data for demo
 export const mockCategories: Category[] = [
@@ -8,6 +8,17 @@ export const mockCategories: Category[] = [
   { id: "4", name: "Supplements", description: "Vitamins and supplements", createdAt: new Date() },
 ]
 
+export const mockUnits: Unit[] = [
+  { id: "1", name: "Tablets", abbreviation: "tabs", description: "Tablet form", createdAt: new Date() },
+  { id: "2", name: "Capsules", abbreviation: "caps", description: "Capsule form", createdAt: new Date() },
+  { id: "3", name: "Milliliters", abbreviation: "ml", description: "Liquid measurement", createdAt: new Date() },
+  { id: "4", name: "Grams", abbreviation: "g", description: "Weight measurement", createdAt: new Date() },
+  { id: "5", name: "Milligrams", abbreviation: "mg", description: "Milligram dosage", createdAt: new Date() },
+  { id: "6", name: "International Units", abbreviation: "IU", description: "International units", createdAt: new Date() },
+  { id: "7", name: "Pieces", abbreviation: "pcs", description: "Individual pieces", createdAt: new Date() },
+  { id: "8", name: "Bottles", abbreviation: "btl", description: "Bottle packaging", createdAt: new Date() },
+]
+
 export const mockMedicines: Medicine[] = [
   {
     id: "1",
@@ -15,6 +26,7 @@ export const mockMedicines: Medicine[] = [
     batchNumber: "PAR001",
     manufacturer: "PharmaCorp",
     categoryId: "2",
+    unitId: "1",
     price: 5.99,
     stockQuantity: 150,
     expiryDate: new Date("2025-12-31"),
@@ -28,6 +40,7 @@ export const mockMedicines: Medicine[] = [
     batchNumber: "AMX002",
     manufacturer: "MediLab",
     categoryId: "1",
+    unitId: "2",
     price: 12.5,
     stockQuantity: 8,
     expiryDate: new Date("2024-06-30"),
@@ -41,6 +54,7 @@ export const mockMedicines: Medicine[] = [
     batchNumber: "VIT003",
     manufacturer: "HealthPlus",
     categoryId: "4",
+    unitId: "6",
     price: 18.99,
     stockQuantity: 75,
     expiryDate: new Date("2026-03-15"),
@@ -54,6 +68,7 @@ export const mockMedicines: Medicine[] = [
     batchNumber: "COS004",
     manufacturer: "BeautyMed",
     categoryId: "3",
+    unitId: "3",
     price: 24.99,
     stockQuantity: 45,
     expiryDate: new Date("2025-08-20"),

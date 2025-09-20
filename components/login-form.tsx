@@ -36,9 +36,9 @@ export function LoginForm() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/50">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold text-primary">PharmaCare</CardTitle>
+      <Card className="w-full max-w-md border-2 border-primary shadow-lg">
+        <CardHeader className="text-center w-full mb-4">
+          <CardTitle className="text-2xl font-bold bg-primary  rounded-full p-2 text-primary-foreground">PharmaCare</CardTitle>
           <CardDescription>Sign in to your pharmacy management system</CardDescription>
         </CardHeader>
         <CardContent>
@@ -70,7 +70,7 @@ export function LoginForm() {
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-            <Button type="submit" className="w-full" disabled={isLoading}>
+            <Button type="submit" className="w-full bg-accent text-accent-foreground hover:bg-accent/60 " disabled={isLoading}>
               {isLoading ? "Signing in..." : "Sign In"}
             </Button>
           </form>

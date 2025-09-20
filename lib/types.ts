@@ -10,9 +10,10 @@ export interface User {
 }
 
 export interface RefillRecord {
-  initialQuantity: number
-  refillDate: Date
-  endDate?: Date
+  initialQuantity: number;
+  refillDate: Date;
+  endDate?: Date;
+  batchNumber: string;
 }
 
 export interface Medicine {
@@ -22,6 +23,7 @@ export interface Medicine {
   batchNumber: string
   manufacturer: string
   categoryId: string
+  unitId: string
   price: number
   stockQuantity: number
   expiryDate: Date
@@ -35,6 +37,14 @@ export interface Medicine {
 export interface Category {
   id: string
   name: string
+  description?: string
+  createdAt: Date
+}
+
+export interface Unit {
+  id: string
+  name: string
+  abbreviation: string
   description?: string
   createdAt: Date
 }

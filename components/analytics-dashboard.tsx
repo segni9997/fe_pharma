@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-import { ArrowLeft, TrendingUp, TrendingDown, DollarSign, Package, Users, Calendar } from "lucide-react"
+import { ArrowLeft, TrendingUp, TrendingDown, DollarSign, Package, Users, Calendar, CurrencyIcon } from "lucide-react"
 import {
   Bar,
   BarChart,
@@ -122,7 +122,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                ${stats.monthlySales.toFixed(2)}
+               Birr {stats.monthlySales.toFixed(2)}
               </div>
               <div className="flex items-center text-xs text-muted-foreground">
                 <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
@@ -152,10 +152,10 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
               <CardTitle className="text-sm font-medium">
                 Avg. Order Value
               </CardTitle>
-              <DollarSign className="h-4 w-4 text-muted-foreground" />
+              <CurrencyIcon className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$24.67</div>
+              <div className="text-2xl font-bold">Birr 24.67</div>
               <div className="flex items-center text-xs text-muted-foreground">
                 <TrendingDown className="h-3 w-3 mr-1 text-red-500" />
                 -2.1% from last week
@@ -171,7 +171,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
               <Package className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$12,450</div>
+              <div className="text-2xl font-bold">Birr 12,450</div>
               <div className="flex items-center text-xs text-muted-foreground">
                 <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
                 +5.4% from last month
@@ -194,7 +194,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
               <ChartContainer
                 config={{
                   sales: {
-                    label: "Sales ($)",
+                    label: "Sales (Birr )",
                     color: "hsl(var(--chart-1))",
                   },
                   transactions: {
@@ -218,7 +218,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
                       dataKey="sales"
                       stroke="var(--color-sales)"
                       strokeWidth={2}
-                      name="Sales ($)"
+                      name="Sales (Birr )"
                     />
                     <Line
                       yAxisId="right"
@@ -246,7 +246,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
               <ChartContainer
                 config={{
                   value: {
-                    label: "Value ($)",
+                    label: "Value (Birr )",
                     color: "hsl(var(--chart-1))",
                   },
                 }}
@@ -260,7 +260,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
                       cy="50%"
                       labelLine={false}
                       label={({ name, percent }: any) =>
-                        `${name} ${(percent * 100).toFixed(0)}%`
+                        `Birr {name}Birr {(percent * 100).toFixed(0)}%`
                       }
                       outerRadius={80}
                       fill="#8884d8"
@@ -268,7 +268,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
                     >
                       {categoryData.map((entry, index) => (
                         <Cell
-                          key={`cell-${index}`}
+                          key={`cell-Birr {index}`}
                           fill={COLORS[index % COLORS.length]}
                         />
                       ))}
@@ -364,7 +364,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
               <div className="flex justify-between">
                 <span className="text-sm">Total Sales:</span>
                 <span className="font-medium">
-                  ${stats.weeklySales.toFixed(2)}
+                 Birr {stats.weeklySales.toFixed(2)}
                 </span>
               </div>
               <div className="flex justify-between">

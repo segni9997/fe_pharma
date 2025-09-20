@@ -1,78 +1,80 @@
-@import "tailwindcss";
+ @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 :root {
-  /* Updated color tokens to match pharmacy design brief */
-  --background: oklch(1 0 0); /* #ffffff */
-  --foreground: oklch(0.35 0 0); /* #4b5563 */
-  --card: oklch(0.98 0 0); /* #f9fafb */
-  --card-foreground: oklch(0.35 0 0); /* #4b5563 */
-  --popover: oklch(1 0 0); /* #ffffff */
-  --popover-foreground: oklch(0.35 0 0); /* #4b5563 */
-  --primary: oklch(0.55 0.15 200); /* #0891b2 cyan-600 */
-  --primary-foreground: oklch(1 0 0); /* #ffffff */
-  --secondary: oklch(0.65 0.2 35); /* #f97316 orange-500 */
-  --secondary-foreground: oklch(1 0 0); /* #ffffff */
-  --muted: oklch(0.98 0 0); /* #f9fafb */
-  --muted-foreground: oklch(0.35 0 0); /* #4b5563 */
-  --accent: oklch(0.65 0.2 35); /* #f97316 orange-500 */
-  --accent-foreground: oklch(1 0 0); /* #ffffff */
-  --destructive: oklch(0.55 0.25 25); /* #dc2626 red-600 */
-  --destructive-foreground: oklch(1 0 0); /* #ffffff */
-  --border: oklch(0.92 0 0); /* #e5e7eb */
-  --input: oklch(0.98 0 0); /* #f9fafb */
-  --ring: oklch(0.55 0.15 200 / 0.5); /* rgba(8, 145, 178, 0.5) */
-  --chart-1: oklch(0.55 0.15 200); /* #0891b2 */
-  --chart-2: oklch(0.65 0.2 35); /* #f97316 */
-  --chart-3: oklch(0.55 0.25 25); /* #dc2626 */
-  --chart-4: oklch(0.35 0 0); /* #4b5563 */
-  --chart-5: oklch(0.98 0 0); /* #f9fafb */
+  /* Professional Medical Color Scheme */
+  --background: oklch(0.99 0.005 106); /* Clean white with slight blue tint */
+  --foreground: oklch(0.15 0.005 106); /* Professional dark blue-gray */
+  --card: oklch(1 0 0); /* Pure white cards */
+  --card-foreground: oklch(0.15 0.005 106); /* Professional dark text */
+  --popover: oklch(1 0 0); /* White popovers */
+  --popover-foreground: oklch(0.15 0.005 106); /* Dark text */
+  --primary: oklch(0.45 0.12 142); /* Professional medical blue */
+  --primary-foreground: oklch(0.98 0.005 106); /* Light text */
+  --secondary: oklch(0.65 0.08 142); /* Light medical blue */
+  --secondary-foreground: oklch(0.15 0.005 106); /* Dark text */
+  --muted: oklch(0.96 0.01 106); /* Very light medical blue */
+  --muted-foreground: oklch(0.5 0.02 142); /* Medium text */
+  --accent: oklch(0.55 0.1 142); /* Accent medical blue */
+  --accent-foreground: oklch(0.98 0.005 106); /* Light text */
+  --destructive: oklch(0.577 0.245 27.325); /* Professional red */
+  --destructive-foreground: oklch(0.98 0.005 106); /* Light text */
+  --warning: oklch(0.75 0.15 85); /* Professional orange */
+  --warning-foreground: oklch(0.15 0.005 106); /* Dark text */
+  --border: oklch(0.92 0.01 106); /* Light professional border */
+  --input: oklch(0.95 0.01 106); /* Light input background */
+  --ring: oklch(0.45 0.12 142 / 0.5); /* Primary ring with opacity */
+  --chart-1: oklch(0.646 0.222 41.116); /* Chart color 1 */
+  --chart-2: oklch(0.6 0.118 184.704); /* Chart color 2 */
+  --chart-3: oklch(0.398 0.07 227.392); /* Chart color 3 */
+  --chart-4: oklch(0.828 0.189 84.429); /* Chart color 4 */
+  --chart-5: oklch(0.769 0.188 70.08); /* Chart color 5 */
   --radius: 0.5rem;
-  --sidebar: oklch(0.98 0 0); /* #f9fafb */
-  --sidebar-foreground: oklch(0.35 0 0); /* #4b5563 */
-  --sidebar-primary: oklch(1 0 0); /* #ffffff */
-  --sidebar-primary-foreground: oklch(0.35 0 0); /* #4b5563 */
-  --sidebar-accent: oklch(0.65 0.2 35); /* #f97316 */
-  --sidebar-accent-foreground: oklch(1 0 0); /* #ffffff */
-  --sidebar-border: oklch(0.92 0 0); /* #e5e7eb */
-  --sidebar-ring: oklch(0.55 0.15 200 / 0.5); /* rgba(8, 145, 178, 0.5) */
+  --sidebar: oklch(0.98 0.005 106); /* Light professional sidebar */
+  --sidebar-foreground: oklch(0.15 0.005 106); /* Dark text */
+  --sidebar-primary: oklch(0.45 0.12 142); /* Sidebar primary */
+  --sidebar-primary-foreground: oklch(0.98 0.005 106); /* Light text */
+  --sidebar-accent: oklch(0.65 0.08 142); /* Sidebar accent */
+  --sidebar-accent-foreground: oklch(0.15 0.005 106); /* Dark text */
+  --sidebar-border: oklch(0.92 0.01 106); /* Light border */
+  --sidebar-ring: oklch(0.45 0.12 142 / 0.5); /* Sidebar ring */
 }
 
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.55 0.15 200);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+[data-theme="dark"] {
+  --background: oklch(0.12 0.01 142); /* Dark professional background */
+  --foreground: oklch(0.95 0.01 142); /* Light professional text */
+  --card: oklch(0.15 0.01 142); /* Dark professional cards */
+  --card-foreground: oklch(0.95 0.01 142); /* Light text */
+  --popover: oklch(0.15 0.01 142); /* Dark popovers */
+  --popover-foreground: oklch(0.95 0.01 142); /* Light text */
+  --primary: oklch(0.55 0.12 142); /* Bright professional blue */
+  --primary-foreground: oklch(0.12 0.01 142); /* Dark text */
+  --secondary: oklch(0.25 0.06 142); /* Medium dark professional blue */
+  --secondary-foreground: oklch(0.95 0.01 142); /* Light text */
+  --muted: oklch(0.2 0.04 142); /* Slightly lighter dark blue */
+  --muted-foreground: oklch(0.7 0.06 142); /* Medium light blue text */
+  --accent: oklch(0.3 0.06 142); /* Accent dark professional blue */
+  --accent-foreground: oklch(0.95 0.01 142); /* Light text */
+  --destructive: oklch(0.6 0.25 25); /* Bright professional red */
+  --destructive-foreground: oklch(0.12 0.01 142); /* Dark text */
+  --warning: oklch(0.8 0.15 85); /* Bright professional orange */
+  --warning-foreground: oklch(0.12 0.01 142); /* Dark text */
+  --border: oklch(0.25 0.04 142); /* Medium dark professional border */
+  --input: oklch(0.18 0.03 142); /* Dark professional inputs */
+  --ring: oklch(0.55 0.12 142 / 0.5); /* Bright professional ring */
+  --chart-1: oklch(0.488 0.243 264.376); /* Chart color 1 */
+  --chart-2: oklch(0.696 0.17 162.48); /* Chart color 2 */
+  --chart-3: oklch(0.769 0.188 70.08); /* Chart color 3 */
+  --chart-4: oklch(0.627 0.265 303.9); /* Chart color 4 */
+  --chart-5: oklch(0.645 0.246 16.439); /* Chart color 5 */
+  --sidebar: oklch(0.13 0.02 142); /* Dark professional sidebar */
+  --sidebar-foreground: oklch(0.95 0.01 142); /* Light text */
+  --sidebar-primary: oklch(0.55 0.12 142); /* Sidebar primary */
+  --sidebar-primary-foreground: oklch(0.12 0.01 142); /* Dark text */
+  --sidebar-accent: oklch(0.25 0.06 142); /* Sidebar accent */
+  --sidebar-accent-foreground: oklch(0.95 0.01 142); /* Light text */
+  --sidebar-border: oklch(0.25 0.04 142); /* Sidebar border */
+  --sidebar-ring: oklch(0.55 0.12 142 / 0.5); /* Sidebar ring */
 }
 
 @theme inline {
@@ -94,6 +96,8 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -118,7 +122,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring;
   }
   body {
     @apply bg-background text-foreground;
