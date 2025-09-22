@@ -92,7 +92,7 @@ export function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-purple-800 text-destructive-foreground shadow-lg hover:shadow-xl transition-shadow cursor-default">
+          <Card className="bg-gradient-to-br from-purple-500 to-purple-300 text-destructive-foreground shadow-lg hover:shadow-xl transition-shadow cursor-default">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-semibold">Low Stock Alert</CardTitle>
               <AlertTriangle className="h-5 w-5 text-destructive-foreground opacity-80" />
