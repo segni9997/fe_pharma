@@ -163,7 +163,9 @@ export function UserManagement({ onBack }: UserManagementProps) {
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back
             </Button>
-            <h1 className="text-2xl font-bold text-primary">User Management</h1>
+            <h1 className="md:text-3xl text-lg  font-bold text-primary">
+              User Management
+            </h1>
           </div>
           {canEdit && (
             <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
@@ -350,7 +352,8 @@ export function UserManagement({ onBack }: UserManagementProps) {
                       <TableCell>{user.email}</TableCell>
                       <TableCell>
                         <Badge variant={getRoleBadgeVariant(user.role)}>
-                          {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                          {user.role.charAt(0).toUpperCase() +
+                            user.role.slice(1)}
                         </Badge>
                       </TableCell>
                       <TableCell>
@@ -385,5 +388,5 @@ export function UserManagement({ onBack }: UserManagementProps) {
         </Card>
       </main>
     </div>
-  )
+  );
 }

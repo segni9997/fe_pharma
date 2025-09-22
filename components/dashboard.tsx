@@ -52,7 +52,7 @@ export function Dashboard() {
             </Badge> */}
           </div>
           <div className="flex items-center gap-6">
-            <span className="text-base text-primary-foreground font-semibold">Welcome, {user?.name}</span>
+            <span className="hidden md:flex text-base text-primary-foreground font-semibold">Welcome, {user?.name}</span>
             <Button variant="outline" size="sm" onClick={handleLogout} className="border-primary-foreground bg-primary text-primary-foreground hover:bg-secondary/80 hover:text-primary-foreground/90 transition">
               <LogOut className="h-5 w-5 mr-2" />
               Logout
@@ -92,7 +92,7 @@ export function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-destructive to-destructive/80 text-destructive-foreground shadow-lg hover:shadow-xl transition-shadow cursor-default">
+          <Card className="bg-purple-800 text-destructive-foreground shadow-lg hover:shadow-xl transition-shadow cursor-default">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-semibold">Low Stock Alert</CardTitle>
               <AlertTriangle className="h-5 w-5 text-destructive-foreground opacity-80" />

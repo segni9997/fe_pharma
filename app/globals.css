@@ -9,18 +9,18 @@
   --card-foreground: oklch(0.15 0.005 106); /* Professional dark text */
   --popover: oklch(1 0 0); /* White popovers */
   --popover-foreground: oklch(0.15 0.005 106); /* Dark text */
-  --primary: oklch(0.45 0.12 142); /* Professional medical blue */
+  --primary: oklch(59.734% 0.11269 226.789); /* Professional medical blue */
   --primary-foreground: oklch(0.98 0.005 106); /* Light text */
-  --secondary: oklch(0.65 0.08 142); /* Light medical blue */
-  --secondary-foreground: oklch(0.15 0.005 106); /* Dark text */
+  --secondary: oklch(63.686% 0.08778 208.102); /* Light medical blue */
+  --secondary-foreground: oklch(98.455% 0.00253 107.122); /* Dark text */
   --muted: oklch(0.96 0.01 106); /* Very light medical blue */
   --muted-foreground: oklch(0.5 0.02 142); /* Medium text */
-  --accent: oklch(0.55 0.1 142); /* Accent medical blue */
+  --accent: oklch(0.59 0.1 142); /* Accent medical blue */
   --accent-foreground: oklch(0.98 0.005 106); /* Light text */
   --destructive: oklch(0.577 0.245 27.325); /* Professional red */
   --destructive-foreground: oklch(0.98 0.005 106); /* Light text */
   --warning: oklch(0.75 0.15 85); /* Professional orange */
-  --warning-foreground: oklch(0.15 0.005 106); /* Dark text */
+  --warning-foreground: oklch(92.548% 0.01192 106.773); /* Dark text */
   --border: oklch(0.92 0.01 106); /* Light professional border */
   --input: oklch(0.95 0.01 106); /* Light input background */
   --ring: oklch(0.45 0.12 142 / 0.5); /* Primary ring with opacity */
@@ -47,8 +47,8 @@
   --card-foreground: oklch(0.95 0.01 142); /* Light text */
   --popover: oklch(0.15 0.01 142); /* Dark popovers */
   --popover-foreground: oklch(0.95 0.01 142); /* Light text */
-  --primary: oklch(0.55 0.12 142); /* Bright professional blue */
-  --primary-foreground: oklch(0.12 0.01 142); /* Dark text */
+  --primary: oklch(59.734% 0.11269 226.789); /* Professional medical blue */
+  --primary-foreground: oklch(93.48% 0.01358 145.83); /* Dark text */
   --secondary: oklch(0.25 0.06 142); /* Medium dark professional blue */
   --secondary-foreground: oklch(0.95 0.01 142); /* Light text */
   --muted: oklch(0.2 0.04 142); /* Slightly lighter dark blue */
@@ -56,9 +56,9 @@
   --accent: oklch(0.3 0.06 142); /* Accent dark professional blue */
   --accent-foreground: oklch(0.95 0.01 142); /* Light text */
   --destructive: oklch(0.6 0.25 25); /* Bright professional red */
-  --destructive-foreground: oklch(0.12 0.01 142); /* Dark text */
-  --warning: oklch(0.8 0.15 85); /* Bright professional orange */
-  --warning-foreground: oklch(0.12 0.01 142); /* Dark text */
+  --destructive-foreground: oklch(91.864% 0.02559 145.553); /* Dark text */
+  --warning: oklch(61.267% 0.11907 84.553); /* Bright professional orange */
+  --warning-foreground: oklch(93.685% 0.01016 145.982); /* Dark text */
   --border: oklch(0.25 0.04 142); /* Medium dark professional border */
   --input: oklch(0.18 0.03 142); /* Dark professional inputs */
   --ring: oklch(0.55 0.12 142 / 0.5); /* Bright professional ring */

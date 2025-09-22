@@ -203,7 +203,7 @@ export function POSSystem({ onBack }: POSSystemProps) {
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back
             </Button>
-            <h1 className="text-2xl font-bold text-primary">Point of Sale</h1>
+            <h1 className="md:text-3xl text-lg font-bold text-primary">Point of Sale</h1>
           </div>
           <div className="flex items-center gap-4">
             <Badge variant="secondary" className="text-xs">

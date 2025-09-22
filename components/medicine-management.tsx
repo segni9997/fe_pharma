@@ -242,7 +242,7 @@ export function MedicineManagement({ onBack }: MedicineManagementProps) {
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back
             </Button>
-            <h1 className="text-3xl font-extrabold text-white tracking-wide">
+            <h1 className="md:text-3xl text-lg font-extrabold text-white tracking-wide">
               Medicine Management
             </h1>
           </div>

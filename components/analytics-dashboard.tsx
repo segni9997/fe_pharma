@@ -77,7 +77,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
   const COLORS = ["#0891b2", "#f97316", "#dc2626", "#4b5563", "#10b981"]
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background w-full">
       {/* Header */}
       <header className="border-b bg-card">
         <div className="flex h-16 items-center justify-between px-6">
@@ -86,7 +86,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back
             </Button>
-            <h1 className="text-2xl font-bold text-primary">
+            <h1 className="md:text-3xl text-lg font-bold text-primary">
               Analytics Dashboard
             </h1>
           </div>
@@ -102,7 +102,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
                 <SelectItem value="1y">Last year</SelectItem>
               </SelectContent>
             </Select>
-            <Badge variant="secondary" className="text-xs">
+            <Badge variant="secondary" className="hidden md:flex text-xs">
               {user?.role.toUpperCase()}
             </Badge>
           </div>
@@ -110,9 +110,9 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
       </header>
 
       {/* Main Content */}
-      <main className="p-6 space-y-6">
+      <main className="md:p-6 p-2 space-y-6 mx-auto flex flex-col">
         {/* KPI Cards */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 md:grid-cols-2 grid-cols-1 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
@@ -122,7 +122,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-               Birr {stats.monthlySales.toFixed(2)}
+                Birr {stats.monthlySales.toFixed(2)}
               </div>
               <div className="flex items-center text-xs text-muted-foreground">
                 <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
@@ -181,9 +181,9 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
         </div>
 
         {/* Charts Row 1 */}
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 p-1">
           {/* Sales Trend Chart */}
-          <Card>
+          <Card className="w-[60%] md:w-full ">
             <CardHeader>
               <CardTitle>Sales Trend</CardTitle>
               <CardDescription>
@@ -202,7 +202,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
                     color: "hsl(var(--chart-2))",
                   },
                 }}
-                className="h-80"
+                className="h-80 w-full"
               >
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={salesTrendData}>
@@ -235,7 +235,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
           </Card>
 
           {/* Category Distribution */}
-          <Card>
+          <Card className="w-[60%] md:w-full ">
             <CardHeader>
               <CardTitle>Inventory by Category</CardTitle>
               <CardDescription>
@@ -250,7 +250,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
                     color: "hsl(var(--chart-1))",
                   },
                 }}
-                className="h-80"
+                className="h-80 w-full"
               >
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
@@ -284,7 +284,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
         {/* Charts Row 2 */}
         <div className="grid gap-6 md:grid-cols-2">
           {/* Top Selling Products */}
-          <Card>
+          <Card className="w-[60%] md:w-full ">
             <CardHeader>
               <CardTitle>Top Selling Products</CardTitle>
               <CardDescription>
@@ -299,7 +299,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
                     color: "hsl(var(--chart-1))",
                   },
                 }}
-                className="h-80"
+                className="h-80 w-full"
               >
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={topSellingData} layout="horizontal">
@@ -315,7 +315,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
           </Card>
 
           {/* Stock Alerts */}
-          <Card>
+          <Card className="w-[60%] md:w-full ">
             <CardHeader>
               <CardTitle>Stock Alerts</CardTitle>
               <CardDescription>
@@ -352,8 +352,8 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
         </div>
 
         {/* Summary Cards */}
-        <div className="grid gap-6 md:grid-cols-3">
-          <Card>
+        <div className="flex flex-col md:flex-row w-full gap-4 justify-center  ">
+          <Card className="md:w-1/3 w-full">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Calendar className="h-5 w-5 text-primary" />
@@ -364,7 +364,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
               <div className="flex justify-between">
                 <span className="text-sm">Total Sales:</span>
                 <span className="font-medium">
-                 Birr {stats.weeklySales.toFixed(2)}
+                  Birr {stats.weeklySales.toFixed(2)}
                 </span>
               </div>
               <div className="flex justify-between">
@@ -382,7 +382,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="md:w-1/3 w-full">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Package className="h-5 w-5 text-primary" />
@@ -415,7 +415,7 @@ export function AnalyticsDashboard({ onBack }: AnalyticsDashboardProps) {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="md:w-1/3 w-full">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-primary" />
